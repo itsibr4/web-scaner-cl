@@ -11,19 +11,16 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from email.mime.text import MIMEText
 
-# --- Section 1: Configuration ---
 CONFIG_FILE = "targets.json"
 LOG_FILE = "scanner.log"
 REPORT_FILE = "scan_report.html"
 
-# Gmail Credentials
-GMAIL_USER = "itsm1mo2012@gmail.com"      # Replace with your Gmail
+GMAIL_USER = "itsm1mo2012@gmail.com"      
 GMAIL_APP_PASS = "dvfm eenn zbvi igwl" 
-RECEIVER_EMAIL = "itslh44@gmail.com"    # Where you want the alerts sent
+RECEIVER_EMAIL = "itslh44@gmail.com"    
 
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s - %(message)s')
 
-# --- Section 2: Scanning Logic ---
 class WebScanner:
     def __init__(self, dry_run=False):
         self.dry_run = dry_run
@@ -56,13 +53,11 @@ class WebScanner:
             pass
         return []
 
-# --- Section 3: Alerts & Reporting ---
 def send_alert(url, findings):
     high_issues = [i for i in findings if "High" in i]
     if not high_issues:
         return
 
-    # Using MIMEText for better email compatibility
     msg_content = f"The automated scanner found high-severity issues at {url}:\n\n" + "\n".join(high_issues)
     msg = MIMEText(msg_content)
     msg['Subject'] = f"Security Alert: Critical Issue at {url}"
@@ -89,7 +84,6 @@ def create_report(data):
         f.write(html)
     print(f"[+] Report generated: {REPORT_FILE}")
 
-# --- Section 4: Runner ---
 def run_scanner(is_dry_run=False):
     if not os.path.exists(CONFIG_FILE):
         print(f"[!] Error: {CONFIG_FILE} not found. Please create it.")
@@ -120,7 +114,6 @@ def run_scanner(is_dry_run=False):
     if not is_dry_run:
         create_report(all_results)
 
-# --- Section 5: Main Entry ---
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--now", action="store_true", help="Run the scan immediately")
@@ -131,7 +124,7 @@ if __name__ == "__main__":
         run_scanner()
     else:
         print("[*] Scanner is running in scheduled mode (03:00 daily). Press Ctrl+C to stop.")
-        schedule.every().day.at("13:47").do(run_scanner)
+        schedule.every().day.at("03:00").do(run_scanner)
         while True:
             schedule.run_pending()
             time.sleep(60)

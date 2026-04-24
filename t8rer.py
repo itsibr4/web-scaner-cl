@@ -15,9 +15,9 @@ CONFIG_FILE = "targets.json"
 LOG_FILE = "scanner.log"
 REPORT_FILE = "scan_report.html"
 
-GMAIL_USER = "itsm1mo2012@gmail.com"      
-GMAIL_APP_PASS = "dvfm eenn zbvi igwl" 
-RECEIVER_EMAIL = "itslh44@gmail.com"    
+GMAIL_USER = "example@gmail.com"      
+GMAIL_APP_PASS = "xxxx xxxx xxxx xxxx" 
+RECEIVER_EMAIL = "admin@gmail.com"    
 
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s - %(message)s')
 
